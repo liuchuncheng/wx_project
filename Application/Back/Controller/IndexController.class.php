@@ -12,4 +12,4 @@ class IndexController extends Controller
     }
      
   
-}.
+}

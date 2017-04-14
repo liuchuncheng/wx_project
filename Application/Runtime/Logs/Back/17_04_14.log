@@ -1,0 +1,19 @@
+[ 2017-04-14T16:14:25+08:00 ] 127.0.0.1 /index.php/back/
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000045s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001203s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.007229s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.007358s ]
+
+[ 2017-04-14T16:15:02+08:00 ] 127.0.0.1 /index.php/back/
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000025s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000513s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000576s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000666s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.012347s ]
+INFO: [ app_end ] --END-- [ RunTime:0.012455s ]
+
