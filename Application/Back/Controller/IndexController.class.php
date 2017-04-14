@@ -8,7 +8,7 @@ class IndexController extends Controller
     public function index()
     {
          header("Content-type: text/html; charset=utf-8");
-         echo '载入成功a';
+         echo '载入成功';
     }
      
   
