@@ -1,0 +1,159 @@
+<extend name="Public/header" />
+<block name="main">
+<div id="dcMain">
+   <!-- 当前位置 -->
+<div id="urHere">管理中心<b>></b><strong>添加商品</strong> </div>   <div class="mainBox" style="height:auto!important;height:550px;min-height:550px;">
+            <h3><a href="product.html" class="actionBtn">商品列表</a>添加商品</h3>
+    <form action="<?=U('back/index/goodsedit');?>" method="post" enctype="multipart/form-data">
+     <table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
+      <tr>
+       <td width="90" align="right">商品名称</td>
+       <td>
+        <input type="text" name="name" value="" size="80" class="inpMain" />
+       </td>
+      </tr>
+      <tr>
+       <td align="right">选择店铺</td>
+       <td>
+        <select name="sid">
+        <option value="0">请选择</option>
+
+        <?php foreach ($shop as $key => $val) { ?>
+            <option value="{$val['id']}">{$val['name']}</option>
+        <?php } ?>                           
+        </select>
+       </td>
+      </tr>
+      <tr>
+       <td align="right">商品价格</td>
+       <td>
+        <input type="text" name="price" value="0" size="40" class="inpMain" onkeyup="value=value.replace(/[^\d]/g,'') "/>
+       </td>
+      </tr>
+      <tr>
+       <td align="right" valign="top">商品数量</td>
+       <td>
+         <input type="text" name="num" value="0" size="40" class="inpMain" onkeyup="value=value.replace(/[^\d]/g,'') "/>
+       </td>
+       
+      </tr>
+            <tr>
+       <td align="right" valign="top">店铺地址</td>
+       <td>
+          <input type="text" name="address" value="0" size="40" class="inpMain" />
+       </td>
+      
+      </tr>
+            <tr>
+       <td align="right" valign="top">店铺电话</td>
+       <td>
+         <input type="text" name="phone" value="0" size="11" class="inpMain" onkeyup="value=value.replace(/[^\d]/g,'') "/>
+       </td>
+       
+      </tr>
+      <tr>
+       <td align="right" valign="top">商户分销提成</td>
+       <td>
+         <input type="text" name="merchart_reward" value="0" size="40" class="inpMain" onkeyup="value=value.replace(/[^\d]/g,'') "/>
+       </td>
+      </tr>
+      <tr>
+       <td align="right" valign="top">员工分销提成</td>
+       <td>
+         <input type="text" name="staff_reward" value="0" size="40" class="inpMain" onkeyup="value=value.replace(/[^\d]/g,'') "/>
+       </td>
+      </tr>
+      <tr>
+       <td align="right">上传商品图片</td>
+       <td>
+        <input type="file" name="img" size="38" class="inpFlie" />
+        
+      </tr>
+      <tr>
+       <td align="right">上传门店图片</td>
+       <td>
+        <input type="file" name="shop_img" size="38" class="inpFlie" />
+        
+      </tr>
+      <tr>
+       <td align="right">商品介绍</td>
+       <td>
+
+       <textarea id="description" name="description" style="width:780px;height:400px;" class="textArea"></textarea>
+       </td>
+        </tr>
+
+        <tr>
+       <td align="right">商品须知</td>
+       <td>
+       <textarea id="goodsnotice" name="goodsnotice" style="width:780px;height:400px;" class="textArea"></textarea>
+       </td>
+      </tr>
+        <!-- KindEditor -->
+      
+        <!-- /KindEditor -->
+        
+      
+  <link rel="stylesheet" href="__JS__/kindeditor/themes/default/default.css" />
+      <link rel="stylesheet" href="__JS__/kindeditor/plugins/code/prettify.css" />
+      <script charset="utf-8" src="__JS__/kindeditor/kindeditor.js"></script>
+      <script charset="utf-8" src="__JS__/kindeditor/lang/zh_CN.js"></script>
+      <script charset="utf-8" src="__JS__/kindeditor/plugins/code/prettify.js"></script>
+        <script>
+          KindEditor.ready(function(K) {
+            var editor1 = K.create('textarea[name="description"]', {
+              cssPath : '__JS__/kindeditor/plugins/code/prettify.css',
+              uploadJson : '__JS__/kindeditor/php/upload_json.php',
+              fileManagerJson : '__JS__/kindeditor/php/file_manager_json.php',
+              allowFileManager : true,
+              afterCreate : function() {
+                var self = this;
+                K.ctrl(document, 13, function() {
+                  self.sync();
+                  K('form[name=example]')[0].submit();
+                });
+                K.ctrl(self.edit.doc, 13, function() {
+                  self.sync();
+                  K('form[name=example]')[0].submit();
+                });
+              }
+            });
+            prettyPrint();
+          });
+      </script>
+        <script>
+          KindEditor.ready(function(K) {
+            var editor1 = K.create('textarea[name="goodsnotice"]', {
+              cssPath : '__JS__/kindeditor/plugins/code/prettify.css',
+              uploadJson : '__JS__/kindeditorphp/upload_json.php',
+              fileManagerJson : '__JS__/kindeditor/php/file_manager_json.php',
+              allowFileManager : true,
+              afterCreate : function() {
+                var self = this;
+                K.ctrl(document, 13, function() {
+                  self.sync();
+                  K('form[name=example]')[0].submit();
+                });
+                K.ctrl(self.edit.doc, 13, function() {
+                  self.sync();
+                  K('form[name=example]')[0].submit();
+                });
+              }
+            });
+            prettyPrint();
+          });
+      </script>
+        <!-- /KindEditor -->
+        
+      <tr>
+       <td></td>
+       <td>
+        
+        <input name="submit" class="btn" type="submit" value="提交" />
+       </td>
+      </tr>
+     </table>
+    </form>
+           </div>
+ </div>
+ </block>
