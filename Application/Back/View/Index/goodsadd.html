@@ -9,7 +9,7 @@
       <tr>
        <td width="90" align="right">商品名称</td>
        <td>
-        <input type="text" name="name" value="" size="80" class="inpMain" />
+        <input type="text" name="name" value="{$data['name']}" size="80" class="inpMain" />
        </td>
       </tr>
       <tr>
@@ -19,7 +19,7 @@
         <option value="0">请选择</option>
 
         <?php foreach ($shop as $key => $val) { ?>
-            <option value="{$val['id']}">{$val['name']}</option>
+            <option value="{$val['id']}" <?php if($val['id'] == $data['sid']){?> selected  <?php } ?> >{$val['name']}</option>
         <?php } ?>                           
         </select>
        </td>
@@ -27,66 +27,66 @@
       <tr>
        <td align="right">商品价格</td>
        <td>
-        <input type="text" name="price" value="0" size="40" class="inpMain" onkeyup="value=value.replace(/[^\d]/g,'') "/>
+        <input type="text" name="price" value="{$data['price']}" size="40" class="inpMain" onkeyup="value=value.replace(/[^\d]/g,'') "/>
        </td>
       </tr>
       <tr>
        <td align="right" valign="top">商品数量</td>
        <td>
-         <input type="text" name="num" value="0" size="40" class="inpMain" onkeyup="value=value.replace(/[^\d]/g,'') "/>
+         <input type="text" name="num" value="{$data['num']}" size="40" class="inpMain" onkeyup="value=value.replace(/[^\d]/g,'') "/>
        </td>
        
       </tr>
             <tr>
        <td align="right" valign="top">店铺地址</td>
        <td>
-          <input type="text" name="address" value="0" size="40" class="inpMain" />
+          <input type="text" name="address" value="{$data['address']}" size="40" class="inpMain" />
        </td>
       
       </tr>
             <tr>
        <td align="right" valign="top">店铺电话</td>
        <td>
-         <input type="text" name="phone" value="0" size="11" class="inpMain" onkeyup="value=value.replace(/[^\d]/g,'') "/>
+         <input type="text" name="phone" value="{$data['phone']}" size="11" class="inpMain" onkeyup="value=value.replace(/[^\d]/g,'') "/>
        </td>
        
       </tr>
       <tr>
        <td align="right" valign="top">商户分销提成</td>
        <td>
-         <input type="text" name="merchart_reward" value="0" size="40" class="inpMain" onkeyup="value=value.replace(/[^\d]/g,'') "/>
+         <input type="text" name="merchart_reward" value="{$data['merchart_reward']}" size="40" class="inpMain" onkeyup="value=value.replace(/[^\d]/g,'') "/>
        </td>
       </tr>
       <tr>
        <td align="right" valign="top">员工分销提成</td>
        <td>
-         <input type="text" name="staff_reward" value="0" size="40" class="inpMain" onkeyup="value=value.replace(/[^\d]/g,'') "/>
+         <input type="text" name="staff_reward" value="{$data['staff_reward']}" size="40" class="inpMain" onkeyup="value=value.replace(/[^\d]/g,'') "/>
        </td>
       </tr>
       <tr>
        <td align="right">上传商品图片</td>
        <td>
-        <input type="file" name="img" size="38" class="inpFlie" />
+        <input type="file" name="img" size="38" class="inpFlie" value="{$data['img']}" />
         
       </tr>
       <tr>
        <td align="right">上传门店图片</td>
        <td>
-        <input type="file" name="shop_img" size="38" class="inpFlie" />
+        <input type="file" name="shop_img" size="38" class="inpFlie" value="{$data['shop_img']}" />
         
       </tr>
       <tr>
        <td align="right">商品介绍</td>
        <td>
 
-       <textarea id="description" name="description" style="width:780px;height:400px;" class="textArea"></textarea>
+       <textarea id="description" name="description" style="width:780px;height:400px;" class="textArea">{$data['description']}</textarea>
        </td>
         </tr>
 
         <tr>
        <td align="right">商品须知</td>
        <td>
-       <textarea id="goodsnotice" name="goodsnotice" style="width:780px;height:400px;" class="textArea"></textarea>
+       <textarea id="goodnotice" name="goodnotice" style="width:780px;height:400px;" class="textArea">{$data['goodnotice']}</textarea>
        </td>
       </tr>
         <!-- KindEditor -->
@@ -123,7 +123,7 @@
       </script>
         <script>
           KindEditor.ready(function(K) {
-            var editor1 = K.create('textarea[name="goodsnotice"]', {
+            var editor1 = K.create('textarea[name="goodnotice"]', {
               cssPath : '__JS__/kindeditor/plugins/code/prettify.css',
               uploadJson : '__JS__/kindeditorphp/upload_json.php',
               fileManagerJson : '__JS__/kindeditor/php/file_manager_json.php',
@@ -148,7 +148,7 @@
       <tr>
        <td></td>
        <td>
-        
+        <input type="hidden" name ="id" value="{$data['id']}">
         <input name="submit" class="btn" type="submit" value="提交" />
        </td>
       </tr>

@@ -83,34 +83,95 @@ class IndexController extends Controller
 
   	}
 
-
+  	/**
+  	 * 商品列表
+  	 */
   	public function goodslist(){
+  		$model = D('goods');
+  		$shopmodel = D('shop');
+
+  		$map = 'status =1';
+	    $count      = $model->where($map)->count();// 查询满足要求的总记录数 $map表示查询条件
+	    $page = new \Think\Page($count, 10);
+	    $show = $page->show();// 分页显示输出
+	    // 进行分页数据查询
+	    $list = $model->where($map)->order('id')->limit($page->firstRow.','.$page->listRows)->select();
+	    $shop =array();
+	    foreach ($list as $key => $val) {
+		    $list[$key]['shop'] = $shopmodel->where('id='.$val['sid'])->getField('name');
+	    }
+	    $this->assign('list',$list);// 赋值数据集
+	    $this->assign('page',$show);// 赋值分页输出
+
 
   		$this->display();
   	}
 
+  	/**
+  	 * 添加商品
+  	 */
   	public function goodsadd(){
-  		$model = D('shop');
+  		$shopmodel = D('shop');
 
-  		$data = $model->where('status=1')->select();
+  		$id = I('get.id');
+  		$model = D('goods');
+
+  		if($id){
+  			$data = $model->find($id);
+  			$this->assign('data',$data);
+  		}
+
+  		$data = $shopmodel->where('status=1')->select();
 
   		$this->assign('shop',$data);
   		$this->display();
   	}
 
+  	/**
+  	 * 修改商品
+  	 */
   	public function goodsedit(){
+  		$model = D('goods');
   		$data = I('post.');
-  		$upload = new \Think\Upload();// 实例化上传类
-	    $upload->maxSize   =     3145728 ;// 设置附件上传大小
-	    $upload->exts      =     array('jpg', 'gif', 'png', 'jpeg');// 设置附件上传类型
-	    $upload->savePath  =     ''; // 设置附件上传根目录
-	    $upload->rootPath  =     'Uploads/'; // 设置附件上传根目录
-	    $info   =   $upload->upload();
-      	if(!$info) {// 上传错误提示错误信息
-      		$this->error($upload->getError());
-      	}
-      	$data['img'] = 'Uploads/'.$info['img']['savepath'].$info['img']['savename'];
-      	$data['shop_img'] = 'Uploads/'.$info['shop_img']['savepath'].$info['shop_img']['savename'];
-      	var_dump($data);die;
+		$id = $data['id'];
+
+  		if(!empty($__FILES)){
+  			$upload = new \Think\Upload();// 实例化上传类
+		    $upload->maxSize   =     3145728 ;// 设置附件上传大小
+		    $upload->exts      =     array('jpg', 'gif', 'png', 'jpeg');// 设置附件上传类型
+		    $upload->savePath  =     ''; // 设置附件上传根目录
+		    $upload->rootPath  =     'Uploads/'; // 设置附件上传根目录
+		    $info   =   $upload->upload();
+	      	if(!$info) {// 上传错误提示错误信息
+	      		$this->error($upload->getError());
+      		}
+
+	      	$data['img'] = 'Uploads/'.$info['img']['savepath'].$info['img']['savename'];
+	      	$data['shop_img'] = 'Uploads/'.$info['shop_img']['savepath'].$info['shop_img']['savename'];	
+  		}
+  		
+
+  		if($id){
+  			$insert = $model->where('id ='.$id)->save($data);
+  		}else{
+  			$insert = $model->add($data);
+  		}
+
+      	if($insert){
+  			$this->success('成功',U('back/index/goodslist'));
+  		}else{
+  			$this->error('失败');
+  		}
+  	}
+
+  	/**
+  	 * 删除商品
+  	 */
+  	public function goodsdel(){
+  		$model = D('goods');
+		$id = I('get.id');
+
+		if($id) $del = $model->delete($id);
+		if($del)  $this->success('删除成功');
   	}
 }

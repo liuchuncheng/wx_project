@@ -14,14 +14,15 @@
        <th width="60" align="center">所属店铺</th>
         <th width="80" align="center">操作</th>
      </tr>
-            <tr>
-        <td align="left">fdsf</td>
-        <td>200</td>
-        <td>12</td>
-        <td align="center">dwd</td>
-        <td align="center"><a href="addproduct.html">编辑</a> | <a href="#">删除</a></td>
-     </tr>
-           
+     <?php foreach ($list as $key => $val) {  ?>
+        <tr>
+          <td align="left">{$val['name']}</td>
+          <td>{$val['price']}</td>
+          <td>{$val['num']}</td>
+          <td align="center">{$val['shop']}</td>
+          <td align="center"><a href="<?=U('back/index/goodsadd',array('id'=>$val['id']));?>">编辑</a> | <a href="<?=U('back/index/goodsdel',array('id'=>$val['id']));?>">删除</a></td>
+       </tr>
+    <?php } ?>
           </table>
            </div>
  </div>
