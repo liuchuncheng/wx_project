@@ -27,20 +27,17 @@
 <!-- dcHead 结束 -->
 <div id="dcLeft">
 <div id="menu">
- <ul>
-  <li><a href="index.html"><i class="articleCat"></i><em>财务管理</em></a></li>
-  
- </ul>
- <ul>
- 
- 
-  <li ><a href="show.html"><i class="show"></i><em>设置图片</em></a></li>
-  
-   <ul>
-  <li class="cur"><a href="product_category.html"><i class="productCat"></i><em>店铺列表</em></a></li>
-  <li><a href="product.html"><i class="product"></i><em>商品列表</em></a></li>
-  <li><a href="product.html"><i class="product"></i><em>员工信息</em></a></li>
- </ul>
+    <ul>
+      <li><a href="index.html"><i class="articleCat"></i><em>财务管理</em></a></li>
+    </ul>
+    <ul>
+      <li ><a href="<?=U('back/index/img');?>"><i class="show"></i><em>设置图片</em></a></li>
+    <ul>
+      <li><a href="<?=U('back/index/shoplist');?>"><i class="productCat"></i><em>店铺列表</em></a></li>
+      <li><a href="<?=U('back/index/goodslist');?>"><i class="product"></i><em>商品列表</em></a></li>
+      <li><a href="<?=U('back/index/staff');?>"><i class="product"></i><em>员工信息</em></a></li>
+      <li><a href="<?=U('back/index/order');?>"><i class="product"></i><em>订单管理</em></a></li>
+    </ul>
   
   
 </div></div>
@@ -126,7 +123,7 @@
         <td align="left"><?php echo ($val['name']); ?></td>
         <td><?php echo ($val['phone']); ?></td>
         <td><?php echo ($val['sex']); ?></td>
-        <td><span>12</span><a href="" style="margin-left: 20px; color: #13a3ff;">查看详情</a> </td>
+        <td><span><?php echo ($val['num']); ?></span><a href="<?=U('back/index/order',array('share_openid'=>$val['openid']));?>" style="margin-left: 20px; color: #13a3ff;">查看详情</a> </td>
         <td align="center"><a href="<?=U('back/index/staffadd',array('id'=>$val['id']));?>">编辑</a> | <a href="<?=U('back/index/staffdel',array('id'=>$val['id']));?>">删除</a></td>
       </tr>
       <?php } ?>         

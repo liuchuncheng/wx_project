@@ -4,9 +4,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>管理中心 - 店铺列表 </title>
 <meta name="Copyright" content="" />
-<link href="/Public/Admin/css/public.css" rel="stylesheet" type="text/css">
-<script type="text/javascript" src="/Public/Admin/js/jquery.min.js"></script>
-<script type="text/javascript" src="/Public/Admin/js/global.js"></script>
+<link href="/Public/Back/css/public.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="/Public/Back/js/jquery.min.js"></script>
+<script type="text/javascript" src="/Public/Back/js/global.js"></script>
 </head>
 <body>
 <div id="dcWrap">
@@ -34,12 +34,12 @@
  <ul>
  
  
-  <li ><a href="show.html"><i class="show"></i><em>设置图片</em></a></li>
+  <li ><a href="<?=U('back/index/img');?>"><i class="show"></i><em>设置图片</em></a></li>
   
    <ul>
-  <li class="cur"><a href="product_category.html"><i class="productCat"></i><em>店铺列表</em></a></li>
-  <li><a href="product.html"><i class="product"></i><em>商品列表</em></a></li>
-  <li><a href="product.html"><i class="product"></i><em>员工信息</em></a></li>
+  <li><a href="<?=U('back/index/shoplist');?>"><i class="productCat"></i><em>店铺列表</em></a></li>
+  <li><a href="<?=U('back/index/goodslist');?>"><i class="product"></i><em>商品列表</em></a></li>
+  <li><a href="<?=U('back/index/staff');?>"><i class="product"></i><em>员工信息</em></a></li>
  </ul>
   
   

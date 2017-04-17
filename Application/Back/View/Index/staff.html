@@ -80,7 +80,7 @@
         <td align="left">{$val['name']}</td>
         <td>{$val['phone']}</td>
         <td>{$val['sex']}</td>
-        <td><span>12</span><a href="" style="margin-left: 20px; color: #13a3ff;">查看详情</a> </td>
+        <td><span>{$val['num']}</span><a href="<?=U('back/index/order',array('share_openid'=>$val['openid']));?>" style="margin-left: 20px; color: #13a3ff;">查看详情</a> </td>
         <td align="center"><a href="<?=U('back/index/staffadd',array('id'=>$val['id']));?>">编辑</a> | <a href="<?=U('back/index/staffdel',array('id'=>$val['id']));?>">删除</a></td>
       </tr>
       <?php } ?>         

@@ -259,9 +259,14 @@ class IndexController extends Controller
      */
     public function staff(){
       $model = D('user');
-
+      $order = D('order');
+    
       $list = $model->where('level=1')->where('is_delete = 1')->select(); 
 
+      foreach ($list as $key => $val) {
+          $num =$order->where(array('share_openid' => $val['openid']))->where('status=1')->select(); 
+          $list[$key]['num'] = count($num);
+      }
       $this->assign('list',$list);
       $this->display();
     }
@@ -349,9 +354,9 @@ class IndexController extends Controller
                  $insert =$model->add($data);
              }
               if($insert){
-                $this->success('导入成功',U('back/index/staff'));
+                $this->success('插入成功',U('back/index/staff'));
              }else{
-                $this->error('导入失败');
+                $this->error('插入失败');
              }
     }
 
@@ -407,5 +412,18 @@ class IndexController extends Controller
              }
          }
          return $data;
-     }  
+     }
+
+     /**
+      * 订单管理
+      */
+     public function order(){
+        $share_openid = I('get.share_openid');
+        $model = D('order');
+        if($share_openid){
+            $list = $model->where(array('share_openid' => $share_openid))->where('status=1')->select();
+            $this->assign('list',$list);
+        }
+        $this->display();
+     }
 }
