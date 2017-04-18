@@ -1,0 +1,115 @@
+body{
+	background-color: #f3f3f8;
+}
+.container{
+	
+	padding-bottom: 0.8rem;
+}
+.info,.describe,.notes{
+	padding: 10px 10px 0;
+	background-color: #fff;
+}
+.info img{
+	width: 100%;
+}
+.info .name h4,.info .name p{
+	margin-top: 7px;
+}
+.info .name h4{
+	font-size: 0.4rem;
+	color: #333;
+}
+.info .name p{
+	font-size: 0.32rem;
+	color: #666;
+	margin-bottom: 10px;
+}
+.info .name .price{
+	color: #fd433d;
+	font-size: 0.28rem;
+}
+.info .buy{
+	display: flex;
+	justify-content: space-between;
+	padding-right: 10px;
+}
+.info .price span{
+	font-size: 0.4rem;
+	font-weight: 900;
+	text-align: left;
+}
+.info .num{
+	text-align: right;
+	font-size: 0.28rem;
+	color: #999;
+}
+.info .con-way{
+	margin-top: 10px;
+	display: flex;
+	border-top: 1px solid #eee;
+	padding: 0.3rem 0;
+	justify-content: space-between;
+}
+.info .con-way .loc{
+	display: flex;
+	height: 0.36rem;
+	line-height: 0.36rem;
+	font-size: 0.28rem;
+	color: #666;
+	text-indent: 4em;
+}
+.info .con-way .loc i{
+	display: block;
+	width: 0.28rem;
+	height: 0.36rem;
+	background-size: 100%;
+	background-image: url(../images/loc.png);
+	background-repeat: no-repeat;
+	margin-right: 4px;
+}
+.info .con-way .tel{
+	width: 0.32rem;
+	height: 0.32rem;
+	background-image: url(../images/tel.png);
+	background-repeat: no-repeat;
+	background-size: 100%;
+	margin-right: 10px;
+}
+.describe,.notes{
+	margin-top: 10px;
+	color: #666;
+	font-size: 0.28rem;
+	padding-bottom: 20px;
+}
+.describe ul,.notes ul{
+	list-style-type: disc;
+	padding-left: 20px;
+}
+.describe li,.notes li{
+	
+	margin-top: 10px;
+	
+}
+.notes .term,.notes .import{
+	margin-top: 10px;
+}
+.notes .title{
+	color: #999;
+}
+.footer{
+	width: 100%;
+	height: 0.8rem;
+	line-height: 0.8rem;
+	text-align: center;
+	color: #fff;
+	font-size: 0.4rem;
+	position: fixed;
+	left: 0;
+	bottom: 0;
+}
+.footer.red{
+	background-color: #fd433d;
+}
+.footer.blue{
+	background-color: #13a3ff;
+}

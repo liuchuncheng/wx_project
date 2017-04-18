@@ -264,7 +264,7 @@ class IndexController extends Controller
       $list = $model->where('level=1')->where('is_delete = 1')->select(); 
 
       foreach ($list as $key => $val) {
-          $num =$order->where(array('share_openid' => $val['openid']))->where('status=1')->select(); 
+          $num =$order->where(array('share_openid' => $val['openid'],'status'=> 1))->select(); 
           $list[$key]['num'] = count($num);
       }
       $this->assign('list',$list);
@@ -421,7 +421,7 @@ class IndexController extends Controller
         $share_openid = I('get.share_openid');
         $model = D('order');
         if($share_openid){
-            $list = $model->where(array('share_openid' => $share_openid))->where('status=1')->select();
+            $list = $model->where(array('share_openid' => $share_openid,'status' => 1))->select();
             $this->assign('list',$list);
         }
         $this->display();
