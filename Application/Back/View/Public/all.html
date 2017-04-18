@@ -1,5 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
+
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>管理中心 - 店铺列表 </title>
@@ -7,6 +8,11 @@
 <link href="__CSS__/public.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="__JS__/jquery.min.js"></script>
 <script type="text/javascript" src="__JS__/global.js"></script>
+<style type="text/css">
+  .pagination .num{
+    margin-right: 10px;
+  }
+</style>
 </head>
 <body>
 <div id="dcWrap">
@@ -28,15 +34,20 @@
 <div id="dcLeft">
 <div id="menu">
     <ul>
-      <li><a href="<?=U('back/index/index');?>"><i class="articleCat"></i><em>财务管理</em></a></li>
+      <li><a href="<?=U('back/pt/index');?>"><i class="articleCat"></i><em>财务总览</em></a></li>
+    </ul> 
+    <ul>
+      <li><a href="<?=U('back/pt/shouru');?>"><i class="articleCat"></i><em>财务收入</em></a></li>
     </ul>
     <ul>
-      <li ><a href="<?=U('back/index/img');?>"><i class="show"></i><em>设置图片</em></a></li>
-    <ul>
-      <!-- <li><a href="<?=U('back/index/shoplist');?>"><i class="productCat"></i><em>店铺列表</em></a></li> -->
-      <li><a href="<?=U('back/index/goodslist');?>"><i class="product"></i><em>商品列表</em></a></li>
-      <li><a href="<?=U('back/index/staff');?>"><i class="product"></i><em>员工信息</em></a></li>
-      <li><a href="<?=U('back/index/order');?>"><i class="product"></i><em>订单管理</em></a></li>
+      <li><a href="<?=U('back/pt/zhichu');?>"><i class="articleCat"></i><em>财务支出</em></a></li>
+    </ul>
+    
+      <li><a href="<?=U('back/index/shoplist');?>"><i class="productCat"></i><em>店铺列表</em></a></li>
+      <li><a href="<?=U('back/pt/goodslist');?>"><i class="product"></i>
+      <em>商品列表</em></a></li>
+     
+    
     </ul>
   
   
@@ -58,4 +69,5 @@
 </div><!-- dcFooter 结束 -->
 <div class="clear"></div> </div>
 </body>
-</html>   
+</html>
+ 

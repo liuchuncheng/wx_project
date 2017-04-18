@@ -1,13 +1,18 @@
 <?php
 namespace Back\Controller;
-
-use Think\Controller;
-class IndexController extends Controller 
+use Back\Controller\BaseController;
+class indexController extends BaseController 
 {
-	//测试自动载入命名空间auto
+	//财务管理
     public function index()
     {
-         
+        $shouru=M()->query("SELECT SUM(pay_money) as sr from pt_order where status=2 and sid='{$_SESSION['id']}'");
+        $zhichu=M()->query("SELECT SUM(price) as zc from pt_hb where sid='{$_SESSION['id']}' ");
+        $sr=$shouru[0]['sr']/100;
+        $zc=$zhichu[0]['zc']/100;
+        $this->assign('sr',$sr);
+        $this->assign('zc',$zc);
+        $this->display(); // 输出模板
     }
      
   	/**
@@ -15,12 +20,13 @@ class IndexController extends Controller
   	 */
   	public function shoplist(){
   			$model = D('shop');
-  			$map = 'status =1';
-		    $count      = $model->where($map)->count();// 查询满足要求的总记录数 $map表示查询条件
-		    $page = new \Think\Page($count, 10);
+  		 
+        $p=isset($_GET['p']) ? $_GET['p'] : 0;
+        // 实例化User对象// 进行分页数据查询 注意page方法的参数的前面部分是当前的页数使用 $_GET[p]获取
+        $list = $model->where('status=1')->order(array('time'=>'desc'))->page($p.',2')->select();
+		    $count      = $model->where('status=1')->count();// 查询满足要求的总记录数 $map表示查询条件
+		    $page = new \Think\Page($count, 2);
 		    $show       = $page->show();// 分页显示输出
-		    // 进行分页数据查询
-		    $list = $model->where($map)->order('time')->limit($page->firstRow.','.$page->listRows)->select();
 		    $this->assign('list',$list);// 赋值数据集
 		    $this->assign('page',$show);// 赋值分页输出
 		    $this->display(); // 输出模板
@@ -88,21 +94,20 @@ class IndexController extends Controller
   	 * 商品列表
   	 */
   	public function goodslist(){
-  		$model = D('goods');
-  		$shopmodel = D('shop');
-
-  		$map = 'status =1';
-	    $count      = $model->where($map)->count();// 查询满足要求的总记录数 $map表示查询条件
-	    $page = new \Think\Page($count, 10);
-	    $show = $page->show();// 分页显示输出
-	    // 进行分页数据查询
-	    $list = $model->where($map)->order('id')->limit($page->firstRow.','.$page->listRows)->select();
-	    $shop =array();
-	    foreach ($list as $key => $val) {
-		    $list[$key]['shop'] = $shopmodel->where('id='.$val['sid'])->getField('name');
-	    }
-	    $this->assign('list',$list);// 赋值数据集
-	    $this->assign('page',$show);// 赋值分页输出
+  		  $model = D('goods');
+        $shopmodel = D('shop');
+       
+        $p=isset($_GET['p']) ? $_GET['p'] : 0;
+        $where=['status'=>1];
+        $list =$model->table('pt_goods a')->join('pt_shop b on a.sid=b.id')->field('a.*,b.shopname as shop_name')->where(array('a.status'=>1,'a.sid'=>$_SESSION['id']))->order(array('a.id'=>'desc'))->page($p.',2')->select();
+        //echo M()->getlastsql();
+        $count = $model->table('pt_goods a')->join('pt_shop b on a.sid=b.id')->field('a.*,b.shopname as shop_name')->where(array('a.status'=>1,'a.sid'=>$_SESSION['id']))->count();
+        
+        $count      = $model->where($map)->count();// 查询满足要求的总记录数 $map表示查询条件
+        $page = new \Think\Page($count, 2);
+        $show = $page->show();// 分页显示输出
+	      $this->assign('list',$list);// 赋值数据集
+	      $this->assign('page',$show);// 赋值分页输出
 
 
   		$this->display();
@@ -259,14 +264,16 @@ class IndexController extends Controller
      */
     public function staff(){
       $model = D('user');
-      $order = D('order');
-    
-      $list = $model->where('level=1')->where('is_delete = 1')->select(); 
-
-      foreach ($list as $key => $val) {
-          $num =$order->where(array('share_openid' => $val['openid'],'status'=> 1))->select(); 
-          $list[$key]['num'] = count($num);
-      }
+      $where=['level'=>1,'is_delete'=>1,'sid'=>$_SESSION['id']];
+      
+      $p=isset($_GET['p']) ? $_GET['p'] : 0;
+        // 实例化User对象// 进行分页数据查询 注意page方法的参数的前面部分是当前的页数使用 $_GET[p]获取
+      $list = $model->where($where)->order(array('id'=>'desc'))->page($p.',2')->select();
+      $count      = $model->where($where)->count();// 查询满足要求的总记录数 $map表示查询条件
+      $page = new \Think\Page($count, 2);
+      $show       = $page->show();// 分页显示输出
+      $this->assign('list',$list);// 赋值数据集
+      $this->assign('page',$show);// 赋值分页输出
       $this->assign('list',$list);
       $this->display();
     }
@@ -415,15 +422,36 @@ class IndexController extends Controller
      }
 
      /**
-      * 订单管理
+      * 店铺总订单管理
       */
      public function order(){
-        $share_openid = I('get.share_openid');
-        $model = D('order');
-        if($share_openid){
-            $list = $model->where(array('share_openid' => $share_openid,'status' => 1))->select();
-            $this->assign('list',$list);
-        }
+        $User = D('order'); 
+        $p=isset($_GET['p']) ? $_GET['p'] : 0;
+        $where=['status'=>2,'sid'=>$_SESSION['id']];
+        $list = $User->where($where)->order(array('pay_time'=>'desc'))->page($p.',2')->select();
+        $count = $User->where($where)->count();
+        $Page = new \Think\Page($count,2); 
+        $this->assign('list',$list);
+        $show = $Page->show();
+        $this->assign('page',$show);
         $this->display();
+        
+     } 
+      /**
+      * 分享订单管理
+      */
+     public function share_order(){
+        $User = D('order'); 
+        $p=isset($_GET['p']) ? $_GET['p'] : 0;
+        $openid=$_GET['share_openid'];
+        $where=['status'=>2,'sid'=>$_SESSION['id'],'share_openid'=>$openid];
+        $list = $User->where($where)->order(array('pay_time'=>'desc'))->page($p.',2')->select();
+        $count = $User->where($where)->count();
+        $Page = new \Think\Page($count,2); 
+        $this->assign('list',$list);
+        $show = $Page->show();
+        $this->assign('page',$show);
+        $this->display();
+        
      }
 }
