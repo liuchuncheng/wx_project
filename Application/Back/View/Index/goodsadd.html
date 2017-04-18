@@ -19,7 +19,7 @@
         <option value="0">请选择</option>
 
         <?php foreach ($shop as $key => $val) { ?>
-            <option value="{$val['id']}" <?php if($val['id'] == $data['sid']){?> selected  <?php } ?> >{$val['name']}</option>
+            <option value="{$val['id']}" <?php if($val['id'] == $data['sid']){?> selected  <?php } ?> >{$val['shopname']}</option>
         <?php } ?>                           
         </select>
        </td>

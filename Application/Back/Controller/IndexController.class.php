@@ -96,7 +96,6 @@ class indexController extends BaseController
   	public function goodslist(){
   		  $model = D('goods');
         $shopmodel = D('shop');
-       
         $p=isset($_GET['p']) ? $_GET['p'] : 0;
         $where=['status'=>1];
         $list =$model->table('pt_goods a')->join('pt_shop b on a.sid=b.id')->field('a.*,b.shopname as shop_name')->where(array('a.status'=>1,'a.sid'=>$_SESSION['id']))->order(array('a.id'=>'desc'))->page($p.',2')->select();
