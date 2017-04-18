@@ -32,8 +32,6 @@ class LoginController extends Controller
         $ret = $this->check();
         if(is_array($ret))
         {
-        	// echo "<pre>";
-        	// print_r($ret);die;
         	if($ret[0]['status']==3)//超级管理员
         	{
                 $this->success('登录成功！', U('Back/pt/index'));
@@ -41,7 +39,8 @@ class LoginController extends Controller
         	}
         	if($ret[0]['status']==1)//店铺账号
         	{
-                $this->success('登录成功！', U('Back/index/shoplist'));
+                $this->success('登录成功！', U('Back/index/index'));
+                //file_put_contents('./wxlog/wx.log',"\n".'执行日期:'.date('Y-m-d H:i:s')."\n".'参数 : '.var_export($_SESSION,true)."\n",8);
                 exit;
         	}
             $this->error('该账号已被禁用！', U('Back/login/login'));
@@ -76,9 +75,8 @@ class LoginController extends Controller
             {
                 // 登录成功之后把用户的信息存到session
                 session('name', $user[0]['name']);
-                session('id', $uid[0]['id']);
-               
-              
+                session('id', $user[0]['id']);
+                //file_put_contents('./wxlog/wx.log',"\n".'执行日期:'.date('Y-m-d H:i:s')."\n".'参数 : '.var_export($user,true)."\n",8);
                 return $user;
             }
             else 

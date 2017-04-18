@@ -1,10 +1,10 @@
 
-<extend name="Public/header" />
+<extend name="Public/all" />
 <block name="main">
 				
  <div id="dcMain">
    <!-- 当前位置 -->
-<div id="urHere">管理中心<b>></b><strong>店铺列表</strong> </div>   <div class="mainBox" style="height:auto!important;height:550px;min-height:550px;">
+<div id="urHere">管理中心<b>></b><strong>店铺列表</strong> </div>   <div class="mainBox" style="height:auto!important;">
         <h3><a href="<?=U('back/index/shopadd');?>" class="actionBtn add">添加店铺</a>店铺列表</h3>
     <table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
     <tr>
@@ -21,13 +21,17 @@
         <td>{$value['pwd']}</td>
         <td align="center">{$value['name']}</td>
         <td align="center">
-          <a href="<?=U('back/index/shopadd',array('id'=>$value['id']));?>">编辑</a> | <a href="<?=U('back/index/shopdel',array('id'=>$value['id']));?>">删除</a></td>
+          <a href="<?=U('back/index/shopadd',array('id'=>$value['id']));?>">编辑</a> | <a href="<?=U('back/index/shopdel',array('id'=>$value['id']));?>" onclick="javascript:if(!confirm('确定要删除么？')) { return false; }">删除</a></td>
      </tr>
 
      <?php  }}  ?>
            
           </table>
            </div>
-           {$page}
+            <div class="pagination" style="text-align:center;font-size:20px;">
+            　　<ul>
+                    <li>{$page}</li>
+                </ul>
+          </div>
  </div>
 </block>
