@@ -38,8 +38,6 @@ class PtController extends BaseController
         $list =$model->table('pt_goods a')->join('pt_shop b on a.sid=b.id')->field('a.*,b.shopname as shop_name')->where(array('a.status'=>1))->order(array('a.id'=>'desc'))->page($p.',2')->select();
         //echo M()->getlastsql();
         $count = $model->table('pt_goods a')->join('pt_shop b on a.sid=b.id')->field('a.*,b.shopname as shop_name')->where(array('a.status'=>1))->count();
-        
-        $count      = $model->where($map)->count();// 查询满足要求的总记录数 $map表示查询条件
         $page = new \Think\Page($count, 2);
         $show = $page->show();// 分页显示输出
        
@@ -88,7 +86,8 @@ class PtController extends BaseController
 
     public function ce()
     {
-        echo time();
+        // echo time();
+        echo md5(md5('666666'.'0e2817'));
     }
 
 

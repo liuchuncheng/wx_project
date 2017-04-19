@@ -54,7 +54,7 @@ class indexController extends BaseController
   		$data = I('post.');
 
   		$salt = substr(uniqid(), -6);
-		$pwd = md5(md5($data['pwd']).$salt);
+		  $pwd = md5(md5($data['pwd'].$salt));
 
   		$data['pwd'] = $pwd;
   		$data['salt'] = $salt;
@@ -101,15 +101,13 @@ class indexController extends BaseController
         $list =$model->table('pt_goods a')->join('pt_shop b on a.sid=b.id')->field('a.*,b.shopname as shop_name')->where(array('a.status'=>1,'a.sid'=>$_SESSION['id']))->order(array('a.id'=>'desc'))->page($p.',2')->select();
         //echo M()->getlastsql();
         $count = $model->table('pt_goods a')->join('pt_shop b on a.sid=b.id')->field('a.*,b.shopname as shop_name')->where(array('a.status'=>1,'a.sid'=>$_SESSION['id']))->count();
-        
-        $count      = $model->where($map)->count();// 查询满足要求的总记录数 $map表示查询条件
         $page = new \Think\Page($count, 2);
         $show = $page->show();// 分页显示输出
 	      $this->assign('list',$list);// 赋值数据集
 	      $this->assign('page',$show);// 赋值分页输出
 
 
-  		$this->display();
+  		  $this->display();
   	}
 
   	/**
