@@ -1,0 +1,149 @@
+[ 2017-04-19T08:55:45+08:00 ] 127.0.0.1 /index.php/index/index/index
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.096006s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.014001s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.014001s ]
+SQL: SHOW COLUMNS FROM `pt_goods` [ RunTime:0.0380s ]
+SQL: SHOW COLUMNS FROM `pt_banner` [ RunTime:0.0420s ]
+SQL: SHOW COLUMNS FROM `pt_shop` [ RunTime:0.0460s ]
+SQL: SELECT * FROM `pt_goods` WHERE `status` = 1  [ RunTime:0.0010s ]
+SQL: SELECT `shopname` FROM `pt_shop` WHERE `id` = 94 AND (  status=1 ) LIMIT 1   [ RunTime:0.0000s ]
+SQL: SELECT `shopname` FROM `pt_shop` WHERE `id` = 22 AND (  status=1 ) LIMIT 1   [ RunTime:0.0000s ]
+SQL: SELECT * FROM `pt_banner` LIMIT 1   [ RunTime:0.0010s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000000s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.041003s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.042003s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.010000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.010000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.088005s ]
+INFO: [ app_end ] --END-- [ RunTime:0.088005s ]
+
+[ 2017-04-19T10:17:03+08:00 ] 127.0.0.1 /index.php/index/index/index
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `pt_goods` [ RunTime:0.0110s ]
+SQL: SHOW COLUMNS FROM `pt_banner` [ RunTime:0.0100s ]
+SQL: SHOW COLUMNS FROM `pt_shop` [ RunTime:0.0140s ]
+SQL: SELECT * FROM `pt_goods` WHERE `status` = 1  [ RunTime:0.0010s ]
+SQL: SELECT `shopname` FROM `pt_shop` WHERE `id` = 94 AND (  status=1 ) LIMIT 1   [ RunTime:0.0010s ]
+SQL: SELECT `shopname` FROM `pt_shop` WHERE `id` = 22 AND (  status=1 ) LIMIT 1   [ RunTime:0.0010s ]
+SQL: SELECT `shopname` FROM `pt_shop` WHERE `id` = 103 AND (  status=1 ) LIMIT 1   [ RunTime:0.0010s ]
+SQL: SELECT * FROM `pt_banner` LIMIT 1   [ RunTime:0.0010s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000000s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.018001s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.018001s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001001s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001001s ]
+
+[ 2017-04-19T10:17:05+08:00 ] 127.0.0.1 /index.php/index/index/index
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.002000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.003000s ]
+SQL: SHOW COLUMNS FROM `pt_goods` [ RunTime:0.0080s ]
+SQL: SHOW COLUMNS FROM `pt_banner` [ RunTime:0.0100s ]
+SQL: SHOW COLUMNS FROM `pt_shop` [ RunTime:0.0070s ]
+SQL: SELECT * FROM `pt_goods` WHERE `status` = 1  [ RunTime:0.0010s ]
+SQL: SELECT `shopname` FROM `pt_shop` WHERE `id` = 94 AND (  status=1 ) LIMIT 1   [ RunTime:0.0010s ]
+SQL: SELECT `shopname` FROM `pt_shop` WHERE `id` = 22 AND (  status=1 ) LIMIT 1   [ RunTime:0.0000s ]
+SQL: SELECT `shopname` FROM `pt_shop` WHERE `id` = 103 AND (  status=1 ) LIMIT 1   [ RunTime:0.0000s ]
+SQL: SELECT * FROM `pt_banner` LIMIT 1   [ RunTime:0.0010s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000000s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.015001s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.015001s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2017-04-19T10:17:06+08:00 ] 127.0.0.1 /index.php/index/index/index
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `pt_goods` [ RunTime:0.0070s ]
+SQL: SHOW COLUMNS FROM `pt_banner` [ RunTime:0.0070s ]
+SQL: SHOW COLUMNS FROM `pt_shop` [ RunTime:0.0060s ]
+SQL: SELECT * FROM `pt_goods` WHERE `status` = 1  [ RunTime:0.0000s ]
+SQL: SELECT `shopname` FROM `pt_shop` WHERE `id` = 94 AND (  status=1 ) LIMIT 1   [ RunTime:0.0010s ]
+SQL: SELECT `shopname` FROM `pt_shop` WHERE `id` = 22 AND (  status=1 ) LIMIT 1   [ RunTime:0.0010s ]
+SQL: SELECT `shopname` FROM `pt_shop` WHERE `id` = 103 AND (  status=1 ) LIMIT 1   [ RunTime:0.0000s ]
+SQL: SELECT * FROM `pt_banner` LIMIT 1   [ RunTime:0.0010s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000000s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.009001s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.010001s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2017-04-19T10:17:21+08:00 ] 127.0.0.1 /index.php/index/index/juaninfo.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.002000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002000s ]
+ERR: 非法操作:juaninfo
+
+[ 2017-04-19T10:38:06+08:00 ] 127.0.0.1 /index.php/index/index/juaninfo.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.002000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.003000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.003000s ]
+ERR: 非法操作:juaninfo
+
+[ 2017-04-19T10:38:12+08:00 ] 127.0.0.1 /index.php/index/index/index
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.002000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002000s ]
+NOTIC: [8] Undefined index: echostr D:\phpStudy\WWW\wx_project\ThinkPHP\Library\Vendor\wx_sample.php 第 15 行.
+NOTIC: [8] Undefined index: signature D:\phpStudy\WWW\wx_project\ThinkPHP\Library\Vendor\wx_sample.php 第 63 行.
+NOTIC: [8] Undefined index: timestamp D:\phpStudy\WWW\wx_project\ThinkPHP\Library\Vendor\wx_sample.php 第 64 行.
+NOTIC: [8] Undefined index: nonce D:\phpStudy\WWW\wx_project\ThinkPHP\Library\Vendor\wx_sample.php 第 65 行.
+NOTIC: [8] Undefined index: echostr D:\phpStudy\WWW\wx_project\ThinkPHP\Library\Vendor\wx_sample.php 第 15 行.
+NOTIC: [8] Undefined index: signature D:\phpStudy\WWW\wx_project\ThinkPHP\Library\Vendor\wx_sample.php 第 63 行.
+NOTIC: [8] Undefined index: timestamp D:\phpStudy\WWW\wx_project\ThinkPHP\Library\Vendor\wx_sample.php 第 64 行.
+NOTIC: [8] Undefined index: nonce D:\phpStudy\WWW\wx_project\ThinkPHP\Library\Vendor\wx_sample.php 第 65 行.
+NOTIC: [8] Undefined variable: state D:\phpStudy\WWW\wx_project\Application\Index\Controller\IndexController.class.php 第 64 行.
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.002000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.003000s ]
+

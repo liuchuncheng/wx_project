@@ -36,7 +36,8 @@
       <!-- <li><a href="<?=U('back/index/shoplist');?>"><i class="productCat"></i><em>店铺列表</em></a></li> -->
       <li><a href="<?=U('back/index/goodslist');?>"><i class="product"></i><em>商品列表</em></a></li>
       <li><a href="<?=U('back/index/staff');?>"><i class="product"></i><em>员工信息</em></a></li>
-      <li><a href="<?=U('back/index/order');?>"><i class="product"></i><em>订单管理</em></a></li>
+      <li><a href="<?=U('back/index/order');?>"><i class="product"></i><em>分销详情</em></a></li>
+      <li><a href="<?=U('back/index/orderlist');?>"><i class="product"></i><em>订单管理</em></a></li>
     </ul>
   
   

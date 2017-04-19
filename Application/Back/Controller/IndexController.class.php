@@ -421,7 +421,7 @@ class indexController extends BaseController
      }
 
      /**
-      * 店铺总订单管理
+      * 店铺分销详情
       */
      public function order(){
         $User = D('order'); 
@@ -437,7 +437,7 @@ class indexController extends BaseController
         
      } 
       /**
-      * 分享订单管理
+      * 分享详情
       */
      public function share_order(){
         $User = D('order'); 
@@ -452,5 +452,41 @@ class indexController extends BaseController
         $this->assign('page',$show);
         $this->display();
         
+     }
+
+     /**
+      * 订单管理
+      */
+     public function orderlist(){
+        $order = D('order');
+
+        $search = I('post.search');
+        if($search){
+            $list =$order->table('pt_order a')->join('pt_goods b on a.gid=b.id')->field('a.*,b.name as goodsname')->where(array('a.status'=>2,'a.sid'=>$_SESSION['id'],'a.thridsqo'=>$search))->order(array('a.id'=>'desc'))->select();
+            $this->assign('search',$search);
+        }else{
+          $list =$order->table('pt_order a')->join('pt_goods b on a.gid=b.id')->field('a.*,b.name as goodsname')->where(array('a.status'=>2,'a.sid'=>$_SESSION['id']))->order(array('a.id'=>'desc'))->select();
+        }
+        
+
+        $this->assign('list',$list);
+        $this->display();
+     }
+
+     /**
+      * 修改订单是否使用
+      */
+     public function changestatus(){
+        $order = D('order');
+        $id = I('get.id');
+
+        $data= ['is_use'=>2];
+        if($id)   $save = $order->where('id ='.$id)->save($data);
+
+        if($save){
+          $this->success('使用成功',U('back/index/orderlist'));
+        }else{
+          $this->error('使用失败');
+        }
      }
 }

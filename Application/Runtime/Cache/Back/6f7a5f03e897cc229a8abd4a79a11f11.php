@@ -44,35 +44,76 @@
 </div></div>
 
 
-<div id="dcMain">
-   <!-- 当前位置 -->
-<div id="urHere">管理中心<b>></b><strong>订单管理</strong><b>></b><strong>分销详情</strong> </div>  <div class="mainBox" style="height:auto!important;">
-        <h3>分销详情</h3>
-    <table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
+<style>
+  .search{
+    overflow: hidden;
+    border-bottom: 1px solid #D7D7D7;
+  }
+  .search h3{
+    float: left;
+    margin-bottom: 0;
+    border-bottom: none;
+  }
+  .search form{
+    float: right;
+
+  }
+  .search input{
+    border: 1px solid #999;
+    width: 200px;
+    height: 27px;
+    padding-left: 5px;
+  }
+  .search button{
+    width: 60px;
+    height: 30px;
+    text-align: center;
+    background-color: #13a3ff;
+    color: #fff;
+  }
+</style>
+<div id="dcMain"> <!-- 当前位置 -->
+<div id="urHere">管理中心<b>></b><strong>订单管理</strong> </div>  
+<div id="index" class="mainBox" style="padding-top:18px;height:auto!important;height:550px;min-height:550px;">
+  <div class="search">
+    <h3>已出售商品列表</h3>
+    <form action="<?=U('back/index/orderlist')?>" method="post">
+      <input type="text" name ="search" value="<?php echo ($search); ?>">
+        <button id="search">搜索</button>
+    </form>
+  </div>
+     
+    <table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic" style="margin-top: 30px;">
       <tr>
-        <th width="120" align="left">微信昵称</th>
-        <th align="left">支付金额</th>
-        <th align="left">支付时间</th>
-       
+        <th width="120" align="left">商品名称</th>
+        <th width="120" align="left">第三方流水号</th>
+        <th align="left">价格</th>
         
+        <th width="80" align="center">使用状态</th>
+        <th width="200" align="center">操作</th>
+
      </tr>
      <?php  foreach($list as $val){ ?>
-            <tr>
-        <td align="left"><?php echo ($val['nickname']); ?></td>
-        <td><?php echo ($val['pay_money']/100); ?></td>
-        <td><?php echo (date("y/m/d H:i:s",$val['pay_time'])); ?></td>
+        <tr>
+        <td align="left"><?php echo ($val['goodsname']); ?></td>
+        <td align="left"><?php echo ($val['thridsqo']); ?></td>
+        <td><?php echo ($val['pay_money']); ?></td>
+       <td align="center"><?php  if($val['is_use']==1) echo '未使用';else{ echo '已使用'; } ?></td>
+        <td align="center"><a href="<?=U('back/index/changestatus',array('id'=>$val['id']));?>">标记为已用</a> | <a href="#">删除</a></td>
      </tr>
      <?php } ?>
-           
-          </table>
-           </div>
-           </div>
-           <div class="pagination" style="text-align:center;font-size:20px;">
-            　　<ul>
-                    <li><?php echo ($page); ?></li>
-                </ul>
-          </div>
+     
+    </table>
+    
+   
+    
+  </div>
  </div>
+ <script>
+$("button").click(function(){
+  $("form").submit();
+});
+ </script>
 
 
 

@@ -10,24 +10,30 @@ class IndexController extends Controller
 	//测试自动载入命名空间auto
     public function index()
     {	
-  //   	vendor("wx_sample");
-  //   	$wechatObj = new \wechatCallbackapiTest();
-		// $wechatObj->valid();
+    	vendor("wx_sample");
+    	$wechatObj = new \wechatCallbackapiTest();
+		$wechatObj->valid();
     	
-  //   	if(I('get.code')){
+    	if(I('get.code')){
 
-    		$this->getuserinfo(I('get.code'));  //获取用户信息
+    		$userinfo = $this->getuserinfo(I('get.code'));  //获取用户信息
 
-    	// }else{
-    	// 	$url = "http://wxzf.zcsmkj.com/index.php/index/index/index";  //回调地址
+    		$goods = $model->where(array('status'=>1))->select();
+			foreach ($goods as $key => $val) {
+				$goods[$key]['shopname'] = $shop->where(array('id' => $val['sid'],'status=1'))->getField('shopname');
+			}
+			$banner = $banner->find();
+			$this->assign('userinfo',$userinfo);
+			$this->assign('goods',$goods);
+			$this->assign('banner',$banner);
+			$this->display('index');
 
-	    // 	$redirect_uri = urlencode($url);
+    	}else{
+    		$url = "http://wxzf.zcsmkj.com/index.php/index/index/index";  //回调地址
 
-	    // 	$url="https://open.weixin.qq.com/connect/oauth2/authorize?appid=".APPID."&redirect_uri=".$redirect_uri."&response_type=code&scope=snsapi_userinfo&state={$state}#wechat_redirect";   //获取code
+	    	$this->code($url);
+    	}
 
-	    // 	header("Location: $url"); 
-    	// }
-        // $this->display();
     }
 
 	//从而获取粉丝的openid，获取成功以后开始业务代码
@@ -35,35 +41,29 @@ class IndexController extends Controller
 			$model = D('goods');
 			$banner = D('banner');
 			$shop = D('shop');
-			// $code = $_GET['code'];
+			$code = $_GET['code'];
 
-			// //获取openid和access_token
-			// $url_get='https://api.weixin.qq.com/sns/oauth2/access_token?appid=wx956afd00e7aa450d&secret=aabd1de66c9f61caeb67d2fd2051e96f&code='.$code.'&grant_type=authorization_code';	
+			//获取openid和access_token
+			$url_get='https://api.weixin.qq.com/sns/oauth2/access_token?appid=wx956afd00e7aa450d&secret=aabd1de66c9f61caeb67d2fd2051e96f&code='.$code.'&grant_type=authorization_code';	
 
-			// $json=json_decode($this->curlGet($url_get));
+			$json=json_decode($this->curlGet($url_get));
 
-			// $openid= $json->openid;
+			$openid= $json->openid;
 
-			// //获取用户信息
-			// $userinfo ="https://api.weixin.qq.com/sns/userinfo?access_token={$json->access_token}&openid={$openid}&lang=zh_CN";
+			//获取用户信息
+			$userinfo ="https://api.weixin.qq.com/sns/userinfo?access_token={$json->access_token}&openid={$openid}&lang=zh_CN";
 
-			// $json=json_decode($this->curlGet($userinfo));
-			// var_dump($json);die;
+			$json=json_decode($this->curlGet($userinfo));
 
-			$data =[
-				'openid' => 'o6g94w_2cSYHmxp3GFC2JUr7E8ww',
-				'sex' => '1',
-				'nickname' => '但行好事，莫问前程'
-			];
+			return $json;
+		}
 
-			$goods = $model->where(array('status'=>1))->select();
-			foreach ($goods as $key => $val) {
-				$goods[$key]['shopname'] = $shop->where(array('id' => $val['sid'],'status=1'))->getField('shopname');
-			}
-			$banner = $banner->find();
-			$this->assign('goods',$goods);
-			$this->assign('banner',$banner);
-			$this->display('index');
+		public function code($url){
+			$redirect_uri = urlencode($url);
+
+	    	$url="https://open.weixin.qq.com/connect/oauth2/authorize?appid=".APPID."&redirect_uri=".$redirect_uri."&response_type=code&scope=snsapi_userinfo&state={$state}#wechat_redirect";   //获取code
+
+	    	header("Location: $url"); 
 		}
 
   //构造一个远程请求https的函数
