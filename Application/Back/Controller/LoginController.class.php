@@ -7,13 +7,7 @@ class LoginController extends Controller
 	//登陆页面
     public function login()
     {
-        //file_put_contents('./wxlog/wx.log',"\n".'执行日期：index'.date('Y-m-d H:i:s')."\n".'参数 :进来了 '."\n",8);
-        // Vendor("Test.Aa");
-        // $r=new \Aa();
-        //echo $r->aa();
         
-    	// $this->assign('user',session('name'));
-     //    $this->assign('title','首页--九宫格');
     	$this->display();
     }
 
