@@ -1,5 +1,9 @@
 #填写忽略文件
 
-./wxlog/1.text
+!/wxlog/1.text
+!/Application/common/.*
+!.gitignore
+
+
 
 
