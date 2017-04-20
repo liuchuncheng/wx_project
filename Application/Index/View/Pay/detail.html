@@ -4,36 +4,38 @@
 	<meta charset="UTF-8">
 	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
 	<title>电子券详情</title>
-	<script src = "js/rem.js"></script>
-	<link rel="stylesheet" href="css/reset.css">
-	<link rel="stylesheet" href="css/juaninfo.css">
+	<script src = "__JS__/rem.js"></script>
+	<script src = "__JS__/jquery-3.1.1.min.js"></script>
+	<link rel="stylesheet" href="__CSS__/reset.css">
+	<link rel="stylesheet" href="__CSS__/juaninfo.css">
 </head>
 <body>
 	<div class="container">
 		<div class="info">
 			<div class="banner">
-				<img src="images/banner1.png" alt="">
+				<img src="{$Think.config.base_url}/<?php echo $data[0]['shop_img'];?>" alt="">
+				<!-- <img src="http://pt.com/Uploads/2017-04-16/58f2cec30cf08.png" alt=""> -->
 			</div>
 			<div class="name">
-				<h4>电子券名称</h4>
-				<p>这是店铺名称</p>
+				<h4><?php echo $data[0]['name'];?></h4>
+				<p><?php echo $data[0]['shop_name'];?></p>
 				<div class="buy">
-					<span class="price"><span>200</span>元</span>
-					<span class="num">已售出13份</span>
+					<span class="price"><span><?php echo $data[0]['price'];?></span>元</span>
+					<span class="num">已售出<?php echo $num[0]['num'];?>份</span>
 				</div>
 
 			</div>
 			<div class="con-way">
-				<div class="loc"><i></i>北京市海淀区中关村海龙商贸城5层20号</div>
+				<div class="loc"><i></i><?php echo $data[0]['address'];?></div>
 				<div class="tel"></div>
 			</div>
 		</div>
 		<div class="describe">
 			<h6>电子券描述</h6>
 			<ul>
-				<li>这里介绍这个电子券</li>
-				<li>这里介绍这个电子券</li>
-				<li>这里介绍这个电子券</li>
+				<?php echo $data[0]['description'];?>
+				<!-- <li>这里介绍这个电子券</li>
+				<li>这里介绍这个电子券</li> -->
 			</ul>
 		</div>
 		<div class="notes">
@@ -43,6 +45,7 @@
 				<ul>
 					<li>购买后30天有效</li>
 				</ul>
+				<?php echo $data[0]['goodnotice'];?>
 			</div>
 			<div class="import">
 				<div class="title">购买须知</div>
@@ -53,6 +56,90 @@
 			</div>
 		</div>
 	</div>
+
 	<div class="footer red">立即购买</div>
+	<input type="hidden" value="<?php echo $data[0]['sid'];?>" name="sid" id='sid' />
+	<input type="hidden" value="<?php echo $data[0]['id'];?>" name="gid" id='gid' />
+	<input type="hidden" value="<?php echo $share_openid;?>" name="share_openid" id='share_openid' />
+	<input type="hidden" value="<?php echo $info['nickname'];?>" name="nickname" id='nickname' />
+	<input type="hidden" value="<?php echo $info['headimgurl'];?>" name="headimgurl" id='headimgurl' />
+	<input type="hidden" value="<?php echo $info['openid'];?>" name="openid" id='openid' />
+	<input type="hidden" value="<?php echo $data[0]['price'];?>" name="pay_money" id='pay_money' />
 </body>
+<script type="text/javascript">
+   $('.red').click(function(){
+   	// alert(111)
+		// if(ua.match(/MicroMessenger/i)=="micromessenger") {
+			
+			wxpay();
+	 // 	} else {
+	 		
+		// 	alert('请在微信浏览器下支付')
+		// }
+	});
+	
+	function wxpay () {
+		// alert(1)
+			var pay_money = $("#pay_money").val();
+			var share_openid = $("#share_openid").val();
+			var wx_openid = $("#openid").val();
+			
+			var nickname = $("#nickname").val();
+			var head = $("#headimgurl").val();
+			var gid = $("#gid").val();
+			var sid = $("#sid").val();
+			
+			$.ajax({
+				url:'__APP__/index/pay/pay',
+				type:"post",
+				data:{
+					'pay_money':pay_money,
+					'share_openid':share_openid,
+					'wx_openid':wx_openid,
+					'nickname':nickname,
+					'head':head,
+					'gid':gid,
+					'sid':sid,
+					
+				},
+
+				success:function(data){
+					// alert(data);
+					var jsApiParameters =  eval('(' + data + ')');
+					callpay();
+					function jsApiCall()
+					{
+						WeixinJSBridge.invoke(
+							'getBrandWCPayRequest',
+							jsApiParameters,
+							function(res){
+								WeixinJSBridge.log(res.err_msg);
+								if(res.err_msg == "get_brand_wcpay_request:ok"){
+									alert('支付成功');
+									//self.location = app;
+								}else{
+									alert('支付失败');
+								}
+							}
+						);
+					}
+
+					function callpay()
+					{
+						if (typeof WeixinJSBridge == "undefined"){
+						    if( document.addEventListener ){
+						        document.addEventListener('WeixinJSBridgeReady', jsApiCall, false);
+						    }else if (document.attachEvent){
+						        document.attachEvent('WeixinJSBridgeReady', jsApiCall); 
+						        document.attachEvent('onWeixinJSBridgeReady', jsApiCall);
+						    }
+						}else{
+						    jsApiCall();
+						}
+					}
+				}
+			});
+	}
+
+</script>
 </html>
