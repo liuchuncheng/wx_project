@@ -21,7 +21,7 @@
 			<ul>
 			<?php  foreach($goods as $val){  ?>
 				<li>
-					<a href="juaninfo.html">
+					<a href="<?=U('index/index/changestatus',array('id'=>$val['id']));?>">
 						<img src="/{$val['img']}" alt="">
 						<h4>{$val['name']}</h4>
 						<p>{$val['shopname']}</p>
@@ -45,7 +45,7 @@
 			</li>
 			<li class="line1"></li>
 			<li class="user">
-				<a href="user.html">
+				<a href="{:U('index/index/mycoupons')}">
 					<i></i>
 					<br>
 					<span>我的电子券</span>
@@ -56,7 +56,14 @@
 	<!-- 员工和老板进来显示 -->
 	<!-- 员工点击跳到yuangongxiaoshou.html -->
 	<!-- 老板点击跳到bossguanli.html -->
-	<a href="">
+	<?php if($level == 1 || $level ==2){ ?>
+
+	<?php if($level ==1){ ?>
+	<a href="<?=U('index/index/showboss',array('id'=>$shop['id']));?>">
+	<?php } ?>
+	<?php if($level ==2){ ?>
+	<a href="<?=U('index/index/showstaff',array('id'=>$user['id']));?>">
+	<?php } ?>
 		<div class="guanli">
 			<div class="bgc"></div>
 			<div class="box">
@@ -64,12 +71,22 @@
 			</div>
 		</div>
 	</a>
+	<?php } ?>
 	
 </body>
 <script>
-	var icon = document.getElementById("icon");
-	setInterval(function(){
-		if(icon.style.display=="none"){icon.style.display="";}else{icon.style.display="none";}
-	},500)
+	// var icon = document.getElementById("icon");
+	// setInterval(function(){
+	// 	if(icon.style.display=="none"){icon.style.display="";}else{icon.style.display="none";}
+	// },500)
 </script>
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script src="__JS__/wechat_index.js"></script><script type="text/javascript">
+                var t = "为公益点亮·与健康同行";
+                var t1 = "我用实际行动支持公益，传递爱心，为希望小学的孩子捐赠了一份爱心礼物";
+                var ds = "我用实际行动支持公益，传递爱心，为希望小学的孩子捐赠了一份爱心礼物";
+                var l = "http://wxzf.zcsmkj.com/index.php/index/index/index";
+                var o = "http://wxzf.zcsmkj.com/index.php/index/index/index";
+                iniShare(t,t1,ds,l,o);
+                </script>
 </html>

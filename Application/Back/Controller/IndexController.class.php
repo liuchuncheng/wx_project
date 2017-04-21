@@ -19,7 +19,7 @@ class indexController extends BaseController
   	 * 店铺账号列表
   	 */
   	public function shoplist(){
-  			$model = D('shop');
+  			$model = D('pt_shop');
   		 
         $p=isset($_GET['p']) ? $_GET['p'] : 0;
         // 实例化User对象// 进行分页数据查询 注意page方法的参数的前面部分是当前的页数使用 $_GET[p]获取
@@ -37,7 +37,7 @@ class indexController extends BaseController
   	 */
   	public function shopadd(){
   		$id = I('get.id');
-  		$model = D('shop');
+  		$model = D('pt_shop');
 
   		if($id){
   			$data = $model->find($id);
@@ -50,7 +50,7 @@ class indexController extends BaseController
   	 * 修改店铺账号
   	 */
   	public function shopedit(){
-  		$model = D('shop');
+  		$model = D('pt_shop');
   		$data = I('post.');
 
   		$salt = substr(uniqid(), -6);
@@ -81,7 +81,7 @@ class indexController extends BaseController
   	 * 删除店铺账号
   	 */
   	public function shopdel(){
-		$model = D('shop');
+		$model = D('pt_shop');
 		$id = I('get.id');
 
     $data['status'] = '2';
@@ -94,8 +94,8 @@ class indexController extends BaseController
   	 * 商品列表
   	 */
   	public function goodslist(){
-  		  $model = D('goods');
-        $shopmodel = D('shop');
+  		  $model = D('pt_goods');
+        $shopmodel = D('pt_shop');
         $p=isset($_GET['p']) ? $_GET['p'] : 0;
         $where=['status'=>1];
         $list =$model->table('pt_goods a')->join('pt_shop b on a.sid=b.id')->field('a.*,b.shopname as shop_name')->where(array('a.status'=>1,'a.sid'=>$_SESSION['id']))->order(array('a.id'=>'desc'))->page($p.',2')->select();
@@ -114,10 +114,10 @@ class indexController extends BaseController
   	 * 添加商品
   	 */
   	public function goodsadd(){
-  		$shopmodel = D('shop');
+  		$shopmodel = D('pt_shop');
 
   		$id = I('get.id');
-  		$model = D('goods');
+  		$model = D('pt_goods');
 
   		if($id){
   			$data = $model->find($id);
@@ -134,11 +134,10 @@ class indexController extends BaseController
   	 * 修改商品
   	 */
   	public function goodsedit(){
-  		$model = D('goods');
+  		$model = D('pt_goods');
   		$data = I('post.');
 		  $id = $data['id'];
-
-  		if(!empty($_FILES)){
+  		if(!$_FILES){
   			$upload = new \Think\Upload();// 实例化上传类
 		    $upload->maxSize   =     3145728 ;// 设置附件上传大小
 		    $upload->exts      =     array('jpg', 'gif', 'png', 'jpeg');// 设置附件上传类型
@@ -161,7 +160,7 @@ class indexController extends BaseController
   		}
 
       	if($insert){
-  			$this->success('成功',U('back/index/goodslist'));
+  			$this->success('成功',U('back/pt/goodslist'));
   		}else{
   			$this->error('失败');
   		}
@@ -171,7 +170,7 @@ class indexController extends BaseController
   	 * 删除商品
   	 */
   	public function goodsdel(){
-  		$model = D('goods');
+  		$model = D('pt_goods');
 		  $id = I('get.id');
 
   		$data['status'] = '2';
@@ -183,7 +182,7 @@ class indexController extends BaseController
      * 上传首页图片
      */
   	public function  img(){
-        $model = D('banner');
+        $model = D('pt_banner');
 
         $list = $model->order('id')->select();
 
@@ -197,7 +196,7 @@ class indexController extends BaseController
     public function uploadimg(){
       $data = I('post.');
       $id = $data['id'];
-      $model = D('banner');
+      $model = D('pt_banner');
 
       if(!empty($_FILES)){
         $upload = new \Think\Upload();// 实例化上传类
@@ -233,7 +232,7 @@ class indexController extends BaseController
      */
     public function editimg(){
 
-      $model = D('banner');
+      $model = D('pt_banner');
 
       $id = I('get.id');
 
@@ -249,7 +248,7 @@ class indexController extends BaseController
      * 图片删除
      */
     public function delimg(){
-      $model = D('banner');
+      $model = D('pt_banner');
       $id = I('get.id');
 
       if($id) $del = $model->delete($id);
@@ -260,15 +259,21 @@ class indexController extends BaseController
      * 员工管理
      */
     public function staff(){
-      $model = D('user');
+      $model = D('pt_user');
+      $order = D('pt_order');
       $where=['level'=>1,'is_delete'=>1,'sid'=>$_SESSION['id']];
       
       $p=isset($_GET['p']) ? $_GET['p'] : 0;
         // 实例化User对象// 进行分页数据查询 注意page方法的参数的前面部分是当前的页数使用 $_GET[p]获取
       $list = $model->where($where)->order(array('id'=>'desc'))->page($p.',2')->select();
+
+      //通过当前员工支付的人数
+      foreach ($list as $key => $val) {
+          $list[$key]['num'] = count($order->where(array('share_openid'=>$val['openid'],'status'=>2))->select());
+      }
       $count      = $model->where($where)->count();// 查询满足要求的总记录数 $map表示查询条件
       $page = new \Think\Page($count, 2);
-      $show       = $page->show();// 分页显示输出
+      $show       = $page->show();// 分页显示输出.
       $this->assign('list',$list);// 赋值数据集
       $this->assign('page',$show);// 赋值分页输出
       $this->assign('list',$list);
@@ -280,7 +285,7 @@ class indexController extends BaseController
      */
     public function staffadd(){
       $id  = I('get.id');
-      $model = D('user');
+      $model = D('pt_user');
 
       if($id) $data = $model->where('id ='.$id)->find();  $this->assign('data',$data); 
       $this->display();
@@ -291,7 +296,7 @@ class indexController extends BaseController
      */
     public function staffedit(){
       $data = I('post.');
-      $model = D('user');
+      $model = D('pt_user');
 
       //sid需要登录后获取，暂时给定一个值做测试
       $data['sid'] = 94;
@@ -318,7 +323,7 @@ class indexController extends BaseController
     
     public function staffdel(){
       $id = I('get.id');
-      $model = D('user');
+      $model = D('pt_user');
 
       $data['is_delete'] = 2;
       $del = '';
@@ -350,7 +355,7 @@ class indexController extends BaseController
                 }
              }
              //实例化模型
-             $model = D('user');
+             $model = D('pt_user');
              //添加的数据
              $data = [];
              for($i=3; $i<=count($list); $i++){
@@ -422,7 +427,7 @@ class indexController extends BaseController
       * 店铺分销详情
       */
      public function order(){
-        $User = D('order'); 
+        $User = D('pt_order'); 
         $p=isset($_GET['p']) ? $_GET['p'] : 0;
         $where=['status'=>2,'sid'=>$_SESSION['id']];
         $list = $User->where($where)->order(array('pay_time'=>'desc'))->page($p.',2')->select();
@@ -438,7 +443,7 @@ class indexController extends BaseController
       * 分享详情
       */
      public function share_order(){
-        $User = D('order'); 
+        $User = D('pt_order'); 
         $p=isset($_GET['p']) ? $_GET['p'] : 0;
         $openid=$_GET['share_openid'];
         $where=['status'=>2,'sid'=>$_SESSION['id'],'share_openid'=>$openid];
@@ -456,7 +461,7 @@ class indexController extends BaseController
       * 订单管理
       */
      public function orderlist(){
-        $order = D('order');
+        $order = D('pt_order');
 
         $search = I('post.search');
         if($search){
@@ -475,7 +480,7 @@ class indexController extends BaseController
       * 修改订单是否使用
       */
      public function changestatus(){
-        $order = D('order');
+        $order = D('pt_order');
         $id = I('get.id');
 
         $data= ['is_use'=>2];

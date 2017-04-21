@@ -48,7 +48,7 @@
  <div id="dcMain">
    <!-- 当前位置 -->
 <div id="urHere">管理中心<b>></b><strong>商品列表</strong> </div>   <div class="mainBox" style="height:auto!important;">
-        <h3><a href="<?=U('back/index/goodsadd');?>" class="actionBtn add">添加商品</a>商品列表</h3>
+        <h3>商品列表</h3>
     <table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
       <tr>
         <th width="120" align="left">商品名称</th>
@@ -63,12 +63,13 @@
           <td><?php echo ($val['price']); ?></td>
           <td><?php echo ($val['num']); ?></td>
           <td align="center"><?php echo ($val['shop_name']); ?></td>
-          <td align="center"><a href="<?=U('back/index/goodsadd',array('id'=>$val['id']));?>">编辑</a> | <a href="<?=U('back/index/goodsdel',array('id'=>$val['id']));?>" onclick="javascript:if(!confirm('确定要删除么？')) { return false; }">删除</a></td>
+          <td align="center"> <a href="<?=U('back/index/goodsdel',array('id'=>$val['id']));?>" onclick="javascript:if(!confirm('确定要下架么？')) { return false; }">下架</a></td>
        </tr>
     <?php } ?>
           </table>
            </div>
-            <div class="pagination" style="text-align:center;font-size:20px;">
+            </div>
+           <div class="pagination" style="text-align:center;font-size:20px;">
             　　<ul>
                     <li><?php echo ($page); ?></li>
                 </ul>

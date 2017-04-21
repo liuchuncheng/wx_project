@@ -304,7 +304,7 @@ K.options = {
 		pre : ['id', 'class'],
 		hr : ['id', 'class', '.page-break-after'],
 		'br,tbody,tr,strong,b,sub,sup,em,i,u,strike,s,del' : ['id', 'class'],
-		iframe : ['id', 'class', 'src', 'frameborder', 'width', 'height', '.width', '.height']
+		iframe : ['id', 'class', 'src', 'frameborder', 'width', 'height', '.width', '.height'],
 	},
 	layout : '<div class="container"><div class="toolbar"></div><div class="edit"></div><div class="statusbar"></div></div>'
 };

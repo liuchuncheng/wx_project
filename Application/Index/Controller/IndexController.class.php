@@ -7,13 +7,20 @@ define('APPSECRET','aabd1de66c9f61caeb67d2fd2051e96f');
 class IndexController extends Controller 
 {
 	
-	//测试自动载入命名空间auto
+	//首页入口
     public function index()
     {	
     	vendor("wx_sample");
     	$wechatObj = new \wechatCallbackapiTest();
 		$wechatObj->valid();
     	
+	    $js = a('Index/share');
+	    $js = $js->getSignPackage();
+    	$model = D('pt_goods');
+		$banner = D('pt_banner');
+		$shop = D('pt_shop');
+		$user = D('pt_user');
+    
     	if(I('get.code')){
 
     		$userinfo = $this->getuserinfo(I('get.code'));  //获取用户信息
@@ -22,10 +29,25 @@ class IndexController extends Controller
 			foreach ($goods as $key => $val) {
 				$goods[$key]['shopname'] = $shop->where(array('id' => $val['sid'],'status=1'))->getField('shopname');
 			}
+
+
+			$where=['openid'=>$userinfo->openid];
+			$shop = $shop->where($where)->find(); 
+			$user = $user->where($where)->find();
+
+			$level =3;
+			if($shop) $level = 1; //老板查看状态
+			
+			if($user) $level = 2; //员工查看状态
+
 			$banner = $banner->find();
-			$this->assign('userinfo',$userinfo);
+			$this->assign('openid',$userinfo->openid);
 			$this->assign('goods',$goods);
 			$this->assign('banner',$banner);
+			$this->assign('shop',$shop);
+			$this->assign('user',$user);
+      		$this->assign('level',$level);
+			$this->assign('js',$js);
 			$this->display('index');
 
     	}else{
@@ -38,9 +60,7 @@ class IndexController extends Controller
 
 	//从而获取粉丝的openid，获取成功以后开始业务代码
 	public function getuserinfo($code){
-			$model = D('goods');
-			$banner = D('banner');
-			$shop = D('shop');
+			
 			$code = $_GET['code'];
 
 			//获取openid和access_token
@@ -82,5 +102,114 @@ class IndexController extends Controller
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		$temp = curl_exec($ch);
 		return $temp;
+	}
+
+	/**
+	 * 二维码 条形码显示页面
+	 */
+	public function showgoods(){
+		$id = 4;
+		$order = D('pt_order');
+
+		$thridsqo = $order->where('id ='.$id)->getField('thridsqo');
+		$this->assign('thridsqo',$thridsqo);
+		$this->display();
+	}
+
+	/**
+	 * 员工登录
+	 */
+	public function login(){
+		$openid = I("get.openid");
+		$this->assign('openid',$openid);
+		$this->display();
+	}
+
+	/**
+	 * 登录
+	 */
+	public function checklogin(){
+		$data = I("post.");
+		$user = D('pt_user');
+		$shop = D('pt_shop');
+		$where = ['name'=>$data['name'],'phone'=>$data['phone']];
+		$isHave = $user->where($where)->select();
+
+		if(!$isHave){
+			$boss = $shop->where($where)->select();
+			if($boss){
+				$data=['openid'=>$data['openid']];
+				$shop->where($where)->save($data);
+				$this->success('成功',U('index/index/index',array('id'=>$boss[0]['id'])));
+			}else{
+				$this->error('账号不存在');
+			}
+		}else{
+			$data=['openid'=>$data['openid']];
+			$user->where($where)->save($data);
+			$this->success('成功',U('index/index/index',array('id' =>$isHave[0]['id'])));
+		}
+	}
+
+	/**
+	 * 老板查看页面
+	 */
+	public function showboss(){
+		$id = I('get.id');
+		$user = D('pt_user');
+		$order = D('pt_order');
+		$shop = D('pt_shop');
+
+		$shop = $shop->where('id ='.$id)->find();
+
+		$list = $user->where('sid ='.$id)->order(array('id'=>'desc'))->select();
+
+		foreach ($list as $key => $val) {
+			$list[$key]['num'] = count($order->where(array('share_openid'=>$val['openid'],'status'=>2))->select());
+		}
+
+		$meshare = $order->where(array('share_openid'=>$shop['openid'],'status'=>2))->select();
+		$this->assign('list',$list);
+		$this->assign('meshare',$meshare);
+		$this->display();
+	}
+
+	/**
+	 * 员工查看页面
+	 */
+	public function showstaff(){
+		$id = I('get.id');
+		$user = D('pt_user');
+		$order = D('pt_order');
+
+		$openid = $user->where('id ='.$id)->getFielD('openid');
+
+		$list = $order->where(array('share_openid'=>$openid,'status'=>2))->select();
+
+		$this->assign('list',$list);
+		$this->display();
+	}
+
+	/**
+	 * 我的电子券
+	 */
+	public 	function mycoupons(){
+		$openid = I("get.openid");
+		// $openid = oixoqxEe4bsMlrrypS3mIUfjOieQ;
+		$order = D('pt_order');
+
+		$list =$order->table('pt_order a')->join('pt_goods b on a.gid=b.id')->join('pt_shop c on b.sid=c.id')->field('a.is_use,b.*,c.shopname')->where(array('a.status'=>2,'a.wx_openid'=>$openid))->order(array('a.id'=>'desc'))->select();
+		$this->assign('list',$list);
+		$this->display();
+	}
+
+	/**
+	 * 获取jssdk
+	 */
+	public function getjssdk(){
+		vendor("Jssdk");
+    $Jssdk = new \Jssdk(APPID,APPSECRET);
+		$url = I('get.localurl');
+		echo  json_encode($Jssdk->GetSignPackage($url));   
 	}
 }

@@ -6,6 +6,7 @@ return array(
 		'__IMG__' => __ROOT__.'/Public/Wap/images',
 		'__CSS__' => __ROOT__.'/Public/Wap/css',
 		'__JS__' => __ROOT__.'/Public/Wap/js',
+		'CACHE' => __ROOT__.'/Public/Wap/cache/',
 		'__UPLOAD__' => __ROOT__.'/Uploads',
 	)
 );	

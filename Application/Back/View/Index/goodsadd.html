@@ -1,5 +1,8 @@
 <extend name="Public/all" />
 <block name="main">
+      <script charset="utf-8" src="__JS__/editor/ueditor.config.js"></script>
+      <script charset="utf-8" src="__JS__/editor/ueditor.all.js"></script>
+
 <div id="dcMain">
    <!-- 当前位置 -->
 <div id="urHere">管理中心<b>></b><strong>添加商品</strong> </div>   <div class="mainBox" style="height:auto!important;height:550px;min-height:550px;">
@@ -80,6 +83,10 @@
        <td>
 
        <textarea id="description" name="description" style="width:780px;height:400px;" class="textArea">{$data['description']}</textarea>
+      <!--  <script id="description" name="description" type="text/plain">
+       {$data['description']}
+    </script> -->
+
        </td>
         </tr>
 
@@ -87,63 +94,11 @@
        <td align="right">商品须知</td>
        <td>
        <textarea id="goodnotice" name="goodnotice" style="width:780px;height:400px;" class="textArea">{$data['goodnotice']}</textarea>
+      <!--  <script id="goodnotice" name="goodnotice" type="text/plain">
+          {$data['goodnotice']}
+        </script> -->
        </td>
       </tr>
-        <!-- KindEditor -->
-      
-        <!-- /KindEditor -->
-        
-      
-  <link rel="stylesheet" href="__JS__/kindeditor/themes/default/default.css" />
-      <link rel="stylesheet" href="__JS__/kindeditor/plugins/code/prettify.css" />
-      <script charset="utf-8" src="__JS__/kindeditor/kindeditor.js"></script>
-      <script charset="utf-8" src="__JS__/kindeditor/lang/zh_CN.js"></script>
-      <script charset="utf-8" src="__JS__/kindeditor/plugins/code/prettify.js"></script>
-        <script>
-          KindEditor.ready(function(K) {
-            var editor1 = K.create('textarea[name="description"]', {
-              cssPath : '__JS__/kindeditor/plugins/code/prettify.css',
-              uploadJson : '__JS__/kindeditor/php/upload_json.php',
-              fileManagerJson : '__JS__/kindeditor/php/file_manager_json.php',
-              allowFileManager : true,
-              afterCreate : function() {
-                var self = this;
-                K.ctrl(document, 13, function() {
-                  self.sync();
-                  K('form[name=example]')[0].submit();
-                });
-                K.ctrl(self.edit.doc, 13, function() {
-                  self.sync();
-                  K('form[name=example]')[0].submit();
-                });
-              }
-            });
-            prettyPrint();
-          });
-      </script>
-        <script>
-          KindEditor.ready(function(K) {
-            var editor1 = K.create('textarea[name="goodnotice"]', {
-              cssPath : '__JS__/kindeditor/plugins/code/prettify.css',
-              uploadJson : '__JS__/kindeditorphp/upload_json.php',
-              fileManagerJson : '__JS__/kindeditor/php/file_manager_json.php',
-              allowFileManager : true,
-              afterCreate : function() {
-                var self = this;
-                K.ctrl(document, 13, function() {
-                  self.sync();
-                  K('form[name=example]')[0].submit();
-                });
-                K.ctrl(self.edit.doc, 13, function() {
-                  self.sync();
-                  K('form[name=example]')[0].submit();
-                });
-              }
-            });
-            prettyPrint();
-          });
-      </script>
-        <!-- /KindEditor -->
         
       <tr>
        <td></td>
@@ -156,4 +111,9 @@
     </form>
            </div>
  </div>
+
+<!--  <script type="text/javascript">
+        var ue = UE.getEditor('description');
+        var ue = UE.getEditor('goodnotice');
+    </script> -->
  </block>
