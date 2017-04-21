@@ -30,8 +30,8 @@ class PtController extends BaseController
      * 商品列表
      */
     public function goodslist(){
-        $model = D('goods');
-        $shopmodel = D('shop');
+        $model = D('pt_goods');
+        $shopmodel = D('pt_shop');
        
         $p=isset($_GET['p']) ? $_GET['p'] : 0;
         $where=['status'=>1];
@@ -49,7 +49,7 @@ class PtController extends BaseController
     //收入
     public function shouru()
     {
-        $User = D('order'); 
+        $User = D('pt_order'); 
         $p=isset($_GET['p']) ? $_GET['p'] : 0;
         // 实例化User对象// 进行分页数据查询 注意page方法的参数的前面部分是当前的页数使用 $_GET[p]获取
         // $list = $User->where('status=2')->order(array('pay_time'=>'desc'))->page($_GET['p'].',2')->select();
@@ -72,7 +72,7 @@ class PtController extends BaseController
     //支出
      public function zhichu()
     {
-        $User = D('hb'); 
+        $User = D('pt_hb'); 
         $p=isset($_GET['p']) ? $_GET['p'] : 0;
         $list =$User->table('pt_hb a')->join('pt_user b on a.openid=b.openid')->field('a.*,b.name')->order(array('a.send_time'=>'desc'))->page($p.',2')->select();
         //echo M()->getlastsql();

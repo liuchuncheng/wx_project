@@ -39,10 +39,23 @@
 		</div>
 		<div class="notes">
 			<h6>购买须知</h6>
-			<?php echo $data[0]['goodnotice'];?>
+			<div class="term">
+				<!-- <div class="title">有效期</div>
+				<ul>
+					<li>购买后30天有效</li>
+				</ul> -->
+				<?php echo $data[0]['goodnotice'];?>
+			</div>
+			<div class="import">
+				<div class="title">购买须知</div>
+				<ul>
+					<li>不与其他优惠同享</li>
+					<li>无法兑换成现金或在购买商品时找零</li>
+				</ul>
+			</div>
 		</div>
 	</div>
-	<a href="__APP__/index/index/">
+	<a href="__APP__/index/index/showgoods/thridsqo/<?php echo $order_num;?>">
 		<div class="footer blue">立即使用</div>
 		<!-- 如果已使用过的改成已使用 -->
 	</a>
