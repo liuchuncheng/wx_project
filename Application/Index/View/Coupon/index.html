@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+	<title>电子券详情</title>
+	
+	<script src = "__JS__/rem.js"></script>
+	<link rel="stylesheet" href="__CSS__/reset.css">
+	<link rel="stylesheet" href="__CSS__/juaninfo.css">
+</head>
+<body>
+	<div class="container">
+		<div class="info">
+			<div class="banner">
+				<img src="{$Think.config.base_url}/<?php echo $data[0]['shop_img'];?>" alt="">
+			</div>
+			<div class="name">
+					<h4><?php echo $data[0]['name'];?></h4>
+				<p><?php echo $data[0]['shop_name'];?></p>
+				<div class="buy">
+					<span class="price"><span><?php echo $data[0]['price'];?></span>元</span>
+					<span class="num">已售出<?php echo $num[0]['num'];?>份</span>
+				</div>
+
+			</div>
+			<div class="con-way">
+				<div class="loc"><i></i><?php echo $data[0]['address'];?></div>
+				<div class="tel"></div>
+			</div>
+		</div>
+		<div class="describe">
+			<h6>电子券描述</h6>
+			<ul>
+				<li><?php echo $data[0]['description'];?></li>
+
+				
+			</ul>
+		</div>
+		<div class="notes">
+			<h6>购买须知</h6>
+			<?php echo $data[0]['goodnotice'];?>
+		</div>
+	</div>
+	<a href="__APP__/index/index/">
+		<div class="footer blue">立即使用</div>
+		<!-- 如果已使用过的改成已使用 -->
+	</a>
+</body>
+</html>
