@@ -105,12 +105,12 @@
 			background-size: 100% 100%;
 		}
 		.footer .sc i{
-			background-image: url(images/shop1.png);
+			background-image: url(__IMG__/shop1.png);
 		}
 		
 		
 		.footer .user.active i{
-			background-image: url(images/juan2.png);
+			background-image: url(__IMG__/juan2.png);
 		}
 	</style>
 </head>
@@ -119,7 +119,7 @@
 		<ul>
 		<?php foreach($list as $val){ ?>
 			<li>
-				<a href="" class="big">
+				<a href="{:U('index/Coupon/index',array('id'=>$val['id']))}" class="big">
 					<div class="info1">
 						<img src="/{$val['img']}" alt="">
 						<div class="text">
@@ -141,7 +141,7 @@
 	<div class="footer">
 		<ul>
 			<li class="sc">
-				<a href="index.html">
+				<a href="{:U('index/index/index',array('openid'=>$openid))}">
 					<i></i>
 					<br>
 					<span>电子卷商城</span>
@@ -149,7 +149,7 @@
 			</li>
 			<li class="line1"></li>
 			<li class="user active">
-				<a href="">
+				<a href="{:U('index/index/mycoupons',array('openid'=>$openid))}">
 					<i></i>
 					<br>
 					<span>我的电子券</span>

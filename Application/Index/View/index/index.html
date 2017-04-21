@@ -3,10 +3,11 @@
 <head>
 	<meta charset="UTF-8">
 	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
-	<title>首页</title>
+	<title>首页1</title>
 	<script src = "__JS__/rem.js"></script>
 	<link rel="stylesheet" href="__CSS__/reset.css">
 	<link rel="stylesheet" href="__CSS__/index.css">
+	<script src = "http://code.jquery.com/jquery-1.8.0.min.js"></script>
 </head>
 <body>
 	<div class="container">
@@ -21,7 +22,7 @@
 			<ul>
 			<?php  foreach($goods as $val){  ?>
 				<li>
-					<a href="<?=U('index/index/changestatus',array('id'=>$val['id']));?>">
+					<a href="<?=U('index/Pay/detail',array('gid'=>$val['id'],'openid'=>$openid));?>">
 						<img src="/{$val['img']}" alt="">
 						<h4>{$val['name']}</h4>
 						<p>{$val['shopname']}</p>
@@ -45,7 +46,7 @@
 			</li>
 			<li class="line1"></li>
 			<li class="user">
-				<a href="{:U('index/index/mycoupons')}">
+				<a href="{:U('index/index/mycoupons',array('openid'=>$openid))}">
 					<i></i>
 					<br>
 					<span>我的电子券</span>
@@ -72,21 +73,193 @@
 		</div>
 	</a>
 	<?php } ?>
-	
+	<input type="hidden" name="openid" id="openid" value="{$openid}">
 </body>
 <script>
+
 	// var icon = document.getElementById("icon");
 	// setInterval(function(){
 	// 	if(icon.style.display=="none"){icon.style.display="";}else{icon.style.display="none";}
 	// },500)
 </script>
+<input id="appid" type="hidden" value='<?php echo $js['appId'];?>'>
+<input id="timestamp" type="hidden" value='<?php echo $js['timestamp'];?>'>
+<input id="nonceStr" type="hidden" value='<?php echo $js["nonceStr"];?>'>
+<input id="signature" type="hidden" value='<?php echo $js["signature"];?>'>
 <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
-<script src="__JS__/wechat_index.js"></script><script type="text/javascript">
-                var t = "为公益点亮·与健康同行";
-                var t1 = "我用实际行动支持公益，传递爱心，为希望小学的孩子捐赠了一份爱心礼物";
-                var ds = "我用实际行动支持公益，传递爱心，为希望小学的孩子捐赠了一份爱心礼物";
-                var l = "http://wxzf.zcsmkj.com/index.php/index/index/index";
-                var o = "http://wxzf.zcsmkj.com/index.php/index/index/index";
-                iniShare(t,t1,ds,l,o);
-                </script>
+<script src = "__JS__/jquery-3.1.1.min.js"></script>
+<script>
+// <input id="appid" type="hidden" value='<?php echo $js["appId"];?>'>
+// <input id="timestamp" type="hidden" value='<?php echo $js['timestamp'];?>'>
+// <input id="nonceStr" type="hidden" value='<?php echo $js["nonceStr"];?>'>
+// <input id="signature" type="hidden" value='<?php echo $js["signature"];?>'>
+var link = window.location.href;
+    var appId = $('#appid').val()
+  	 var timestamp = $('#timestamp').val()
+  	var nonceStr = $('#nonceStr').val()
+  	var signature = $('#signature').val()
+  	//alert(signature);
+  wx.config({
+  	
+  	//alert(signature);
+
+    debug: false,//如果要调试的话该为true;
+    appId: appId,
+    timestamp: timestamp,
+    nonceStr: nonceStr,
+    signature: signature,
+    jsApiList: [
+      // 所有要调用的 API 都要加到这个列表中
+	  
+        'checkJsApi',
+        'onMenuShareTimeline',
+        'onMenuShareAppMessage',
+        'onMenuShareQQ',
+        'onMenuShareWeibo',
+        'hideMenuItems',
+        'showMenuItems',
+        'hideAllNonBaseMenuItem',
+        'showAllNonBaseMenuItem',
+        'translateVoice',
+        'startRecord',
+        'stopRecord',
+        'onRecordEnd',
+        'playVoice',
+        'pauseVoice',
+        'stopVoice',
+        'uploadVoice',
+        'downloadVoice',
+        'chooseImage',
+        'previewImage',
+        'uploadImage',
+        'downloadImage',
+        'getNetworkType',
+        'openLocation',
+        'getLocation',
+        'hideOptionMenu',
+        'showOptionMenu',
+        'closeWindow',
+        'scanQRCode',
+        'chooseWXPay',
+        'openProductSpecificView',
+        'addCard',
+        'chooseCard',
+        'openCard'
+      
+    ]
+  });
+  wx.ready(function () {
+    // 在这里调用 API   
+	  wx.onMenuShareAppMessage({
+      title: '百彩嘉O2O美容服务平台',
+      desc: '百彩嘉专注用户体验  决胜美容O2O',
+      link: link,
+      imgUrl: 'http://wxzf.zcsmkj.com/Public/Wap/images/user1.png',
+      trigger: function (res) {
+        // 不要尝试在trigger中使用ajax异步请求修改本次分享的内容，因为客户端分享操作是一个同步操作，这时候使用ajax的回包会还没有返回
+     //   alert('用户点击发送给朋友');
+      },
+      success: function (res) {
+
+       //alert('已分享');
+      },
+      cancel: function (res) {
+      //  alert('已取消');
+      },
+      fail: function (res) {
+        alert(JSON.stringify(res));
+      }
+    });
+
+	
+  });
+
+  wx.error(function(res){
+
+    // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
+   alert(JSON.stringify(res));
+});
+
+// $(function(){
+//   	//微信地图
+// $('strong.openLocation').click(function(){
+
+// 	var jd = $('#jd').val()
+// 	var wd = $('#wd').val()
+// 	var store_name =$('#store_name').val();
+// 	var store_address =$('#store_address').val();
+// 			wx.openLocation({
+// 			  latitude: jd,
+// 			  longitude: wd,
+// 			  name: store_name,
+// 			  address: store_address,
+// 			  scale: 14,
+// 			  infoUrl: 'http://weixin.qq.com'
+// 			});
+	
+
+// 	})
+// })
+</script>
+	
+<script>
+        var link = window.location.href;
+        var imgUrl ="http://wxzf.zcsmkj.com/Public/Wap/images/banner.png";
+        //var descContent = '亲们~~我刚刚在<{$companyintroduce['usercompany']}>做完发型~~现在享受好友特权哦！~~ 大家可以在左下角用手机号下载优惠券~~，可以享受88元韩式精剪一次请在美丽人生使用哦';
+		var descContent = "七月下降到底";
+		var lineLink =link;
+        var shareTitle = "每月最优惠的5天";
+        var appid = 'wx956afd00e7aa450d';
+		//分享给朋友
+function shareFriend() {
+    WeixinJSBridge.invoke('sendAppMessage',{
+        "appid": appid,
+        "img_url": imgUrl,
+        "img_width": "64",  //缩略图的大小，你可以自己修改
+        "img_height": "64", //缩略图的大小，你可以自己修改
+        "link": lineLink,
+        "desc": descContent,
+        "title": shareTitle
+    }, function(res) {
+    })
+}
+//分享到朋友圈
+function shareTimeline() {
+    WeixinJSBridge.invoke('shareTimeline',{
+        "img_url": imgUrl,
+        "img_width": "64", //缩略图的大小，你可以自己修改
+        "img_height": "64", //缩略图的大小，你可以自己修改
+        "link": lineLink,
+        "desc": descContent,
+        "title": shareTitle
+    }, function(res) {
+        
+    });
+}
+//分享到企鹅微博
+function shareWeibo() {
+    WeixinJSBridge.invoke('shareWeibo',{
+        "content": descContent,
+        "url": lineLink,
+    }, function(res) {
+        
+    });
+}
+
+document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+    //绑定‘分享给朋友’按钮
+    WeixinJSBridge.on('menu:share:appmessage', function(argv){
+        shareFriend();
+    });
+    //绑定‘分享到朋友圈’按钮
+    WeixinJSBridge.on('menu:share:timeline', function(argv){
+        shareTimeline();
+    });
+    //绑定‘分享到微博’按钮
+    WeixinJSBridge.on('menu:share:weibo', function(argv){
+        shareWeibo();
+    });
+}, false);
+ 
+</script>
 </html>
